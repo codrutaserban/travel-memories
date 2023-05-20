@@ -26,9 +26,9 @@ class HomeViewModel : ViewModel() {
 
     private fun loadMemories() {
         val fruitsStringList = ArrayList<Memory>()
-        fruitsStringList.add(Memory("m1","l1","img1","12.05.2020"))
-        fruitsStringList.add(Memory("m2","l2","img2","12.05.2019"))
-        fruitsStringList.add(Memory("m3","l3","img3","12.05.2018"))
+        fruitsStringList.add(Memory(1,"m1","l1","img1","12.05.2020"))
+        fruitsStringList.add(Memory(2,"m2","l2","img2","12.05.2019"))
+        fruitsStringList.add(Memory(3,"m3","l3","img3","12.05.2018"))
         memoryList!!.postValue(fruitsStringList)
     }
 

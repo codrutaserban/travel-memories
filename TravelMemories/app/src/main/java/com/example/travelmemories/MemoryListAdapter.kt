@@ -10,14 +10,16 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.travelmemories.databinding.MemoryRecyclerViewItemBinding
 
-class MemoryListAdapter(private var memories: List<Memory>): RecyclerView.Adapter<MemoryListAdapter.MemoryViewHolder>() {
+class MemoryListAdapter(private var memories: List<Memory>): ListAdapter<Memory,MemoryListAdapter.MemoryViewHolder>(RowItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemoryViewHolder {
         val layout = LayoutInflater.from(parent.context).inflate (R.layout.memory_recycler_view_item,parent,false)
         val holder = MemoryViewHolder(layout)
+        val binding = MemoryRecyclerViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         holder.itemView.setOnClickListener {
-            Toast.makeText(parent.context, "item in recycler view clicked", Toast.LENGTH_LONG).show()
+            Toast.makeText(parent.context, "item in recycler view clicked ${holder.textViewName.text}", Toast.LENGTH_LONG).show()
         }
         Log.d(" Home Adapter ", "on create view holder")
         return holder
@@ -31,6 +33,7 @@ class MemoryListAdapter(private var memories: List<Memory>): RecyclerView.Adapte
         val currentItem = memories[position]
         Log.d(" Home Adapter ", "on bind view holder")
         holder.bind(currentItem)
+        //aici pot face si holder.textViewName daca le declar ca public
     }
 
     fun updateList(data: List<Memory>) {
@@ -40,31 +43,28 @@ class MemoryListAdapter(private var memories: List<Memory>): RecyclerView.Adapte
     }
 
     class MemoryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        private lateinit var textViewName: TextView
-        private lateinit var textViewLocation: TextView
-        private lateinit var textViewDate: TextView
+        var textViewName: TextView = itemView.findViewById<TextView>(R.id.memory_item_name)
+        private var textViewLocation: TextView =itemView.findViewById<TextView>(R.id.memory_item_location)
+        private var textViewDate: TextView =itemView.findViewById<TextView>(R.id.memory_item_date)
 
         fun bind(item:Memory){//, position:Int){
             Log.d(" Home Adapter ", "bind date $item")
 
-            textViewName = itemView.findViewById<TextView>(R.id.memory_item_name)
             textViewName.text = item.name
-
-            textViewLocation = itemView.findViewById<TextView>(R.id.memory_item_location)
             textViewLocation.text = item.location
-
-            textViewDate = itemView.findViewById<TextView>(R.id.memory_item_date)
             textViewDate.text = item.date
         }
     }
 
-//    class RowItemDiffCallback : DiffUtil.ItemCallback<Memory> () {
-//        override fun areItemsTheSame (oldItem : Memory, newItem : Memory) : Boolean {
-//            return oldItem.name == newItem.name
-//        }
-//
-//        override fun areContentsTheSame (oldItem : Memory, newItem : Memory) : Boolean {
-//            return oldItem.location == newItem.location
-//        }
-//    }
+    class RowItemDiffCallback : DiffUtil.ItemCallback<Memory> () {
+        // prima data apeleaza asta
+        override fun areItemsTheSame (oldItem : Memory, newItem : Memory) : Boolean {
+            return (oldItem.id == newItem.id) || oldItem == newItem
+        }
+
+        // daca areItemsTheSame da false, apeleaza areContentsTheSame
+        override fun areContentsTheSame (oldItem : Memory, newItem : Memory) : Boolean {
+            return oldItem.name == newItem.name && oldItem.location == newItem.location && oldItem.date == newItem.date
+        }
+    }
 }

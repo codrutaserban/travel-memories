@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
 
         Log.d("Home fragment ", "bind recycler")
         recyclerView = binding.recyclerViewHome
-        val adapter = MemoryListAdapter(listOf(Memory("aa","b","c","d")))
+        val adapter = MemoryListAdapter(listOf(Memory(1,"aa","b","c","d")))
        recyclerView.adapter= adapter
         recyclerView.layoutManager = LinearLayoutManager(root.context)
         homeViewModel.getMemoryList().observe(viewLifecycleOwner, Observer<List<Memory>>{ memoryList ->
