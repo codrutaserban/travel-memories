@@ -10,14 +10,12 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.travelmemories.databinding.MemoryRecyclerViewItemBinding
 
 class MemoryListAdapter(private var memories: List<Memory>): ListAdapter<Memory,MemoryListAdapter.MemoryViewHolder>(RowItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemoryViewHolder {
         val layout = LayoutInflater.from(parent.context).inflate (R.layout.memory_recycler_view_item,parent,false)
         val holder = MemoryViewHolder(layout)
-        val binding = MemoryRecyclerViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         holder.itemView.setOnClickListener {
             Toast.makeText(parent.context, "item in recycler view clicked ${holder.textViewName.text}", Toast.LENGTH_LONG).show()
         }
