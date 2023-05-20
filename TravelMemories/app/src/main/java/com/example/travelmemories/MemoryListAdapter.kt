@@ -10,14 +10,17 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.travelmemories.databinding.MemoryRecyclerViewItemBinding
 
 class MemoryListAdapter(private var memories: List<Memory>): ListAdapter<Memory,MemoryListAdapter.MemoryViewHolder>(RowItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemoryViewHolder {
         val layout = LayoutInflater.from(parent.context).inflate (R.layout.memory_recycler_view_item,parent,false)
-        val holder = MemoryViewHolder(layout)
+        val binding = MemoryRecyclerViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        val holder = MemoryViewHolder.from(parent)
         holder.itemView.setOnClickListener {
-            Toast.makeText(parent.context, "item in recycler view clicked ${holder.textViewName.text}", Toast.LENGTH_LONG).show()
+            Toast.makeText(parent.context, "item in recycler view clicked ${holder.binding.memoryItemName.text}", Toast.LENGTH_SHORT).show()
         }
         Log.d(" Home Adapter ", "on create view holder")
         return holder
@@ -40,17 +43,26 @@ class MemoryListAdapter(private var memories: List<Memory>): ListAdapter<Memory,
         notifyDataSetChanged()
     }
 
-    class MemoryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        var textViewName: TextView = itemView.findViewById<TextView>(R.id.memory_item_name)
-        private var textViewLocation: TextView =itemView.findViewById<TextView>(R.id.memory_item_location)
-        private var textViewDate: TextView =itemView.findViewById<TextView>(R.id.memory_item_date)
+    class MemoryViewHolder private constructor(val binding: MemoryRecyclerViewItemBinding): RecyclerView.ViewHolder(binding.root) {
+//        var textViewName: TextView = itemView.findViewById<TextView>(R.id.memory_item_name)
+//        private var textViewLocation: TextView =itemView.findViewById<TextView>(R.id.memory_item_location)
+//        private var textViewDate: TextView =itemView.findViewById<TextView>(R.id.memory_item_date)
+        companion object {
+            fun from(parent: ViewGroup): MemoryViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = MemoryRecyclerViewItemBinding .inflate(layoutInflater, parent, false)
+                return MemoryViewHolder(binding)
+            }
+        }
 
         fun bind(item:Memory){//, position:Int){
             Log.d(" Home Adapter ", "bind date $item")
 
-            textViewName.text = item.name
-            textViewLocation.text = item.location
-            textViewDate.text = item.date
+            with(binding) {
+                binding.memoryItemName.text = item.name
+                binding.memoryItemLocation.text = item.location
+                binding.memoryItemDate.text = item.date
+            }
         }
     }
 
