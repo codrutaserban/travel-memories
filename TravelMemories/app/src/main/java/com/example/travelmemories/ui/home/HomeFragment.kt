@@ -1,7 +1,6 @@
 package com.example.travelmemories.ui.home
 
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Note
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.travelmemories.Memory
 import com.example.travelmemories.MemoryListAdapter
+import com.example.travelmemories.TravelMemoriesDb
 import com.example.travelmemories.databinding.FragmentHomeBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class HomeFragment : Fragment() {
@@ -36,7 +40,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(this)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -50,23 +54,50 @@ class HomeFragment : Fragment() {
         Log.d("Home fragment ", "bind recycler")
         recyclerView = binding.recyclerViewHome
         val adapter = MemoryListAdapter(listOf(Memory(1,"aa","b","c","d")))
-       recyclerView.adapter= adapter
+        recyclerView.adapter= adapter
         recyclerView.layoutManager = LinearLayoutManager(root.context)
-        homeViewModel.getMemoryList().observe(viewLifecycleOwner, Observer<List<Memory>>{ memoryList ->
+        homeViewModel.getMemoryList(root.context).observe(viewLifecycleOwner, Observer<List<Memory>>{ memoryList ->
             // update UI
             data.value=memoryList
             da=memoryList!!
             Log.d("Home Fragment ","Data Send: "+data.value!!.size.toString())
-            recyclerView.swapAdapter(MemoryListAdapter(da), false);
-            adapter.updateList(da)
+            Log.d("HomeFragment", "In observer: da:$da ")
+            Log.d("HomeFragment", "In observer: data:$data ")
 
-
+            adapter.updateList(memoryList!!)
         })
 
-        homeViewModel.getMemoryList().observe(viewLifecycleOwner, Observer<List<Memory>>{ memories ->
-            adapter.updateList(memories)
+        homeViewModel.getMemoryList(root.context).observe(viewLifecycleOwner, Observer<List<Memory>>{
+                memoryList -> adapter.updateList(memoryList)
+        })
 
-        } )
+        val memoriesDAO =  TravelMemoriesDb.getInstances(root.context).memoriesDAO()
+
+//        lifecycleScope.launch {
+//            withContext(Dispatchers.IO) {
+//                memoriesDAO.deleteAll()
+//            }
+//        }
+
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                homeViewModel.getDummyMemories().forEach {
+                    memoriesDAO.insert(it)
+                }
+            }
+        }
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val aux =ArrayList<Memory>()
+            memoriesDAO.getAll().forEach{
+                Log.d("HomeFragment", "$it")
+                val m = Memory.fromEntity(it)
+                aux.add(m)
+                Log.d("HomeFragment", "$m")
+            }
+            Log.d("HomeFragment", "Call updateMemoryList")
+            homeViewModel.updateMemoryList(aux)
+        }
 
         return root
     }
