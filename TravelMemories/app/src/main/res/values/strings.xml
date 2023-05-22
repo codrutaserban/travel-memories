@@ -8,8 +8,14 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="about_us">About us</string>
+    <string name="contact_us">Contact us</string>
+    <string name="share">Share</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Logout</string>
+
+    <string name="about_us_text">What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</string>
+
     <string name="title_activity_maps">MapsActivity</string>
     <!-- add/edit memory activity -->
     <string name="place_name_placeholder">Place name</string>
