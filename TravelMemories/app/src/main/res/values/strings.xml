@@ -11,4 +11,24 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <!-- add/edit memory activity -->
+    <string name="place_name_placeholder">Place name</string>
+    <string name="set_location_button">Set location</string>
+    <string name="set_date_text">Set date</string>
+    <string name="your_location">Your location</string>
+    <string name="type_of_travel_text">Type of travel</string>
+    <string-array name="types_of_travel_options">
+        <item>Business</item>
+        <item>Vacation</item>
+        <item>Personal</item>
+        <item>Others</item>
+    </string-array>
+    <string name="mood_text">Mood (0- Disappointed; 100- very satisfied)</string>
+    <string name="notes_placeholder">Add notes</string>
+    <string name="save_button">Save</string>
+    <string name="delete_button">Delete</string>
+    <string name="add_activity_title">Add activity</string>
+
+    <!-- maps activity -->
+    <string name="select_location">Select Location</string>
 </resources>

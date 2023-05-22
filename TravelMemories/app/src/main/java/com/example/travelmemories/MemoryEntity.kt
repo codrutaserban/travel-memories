@@ -6,14 +6,14 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "memory_table")
 data class MemoryEntity (
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    var id: Int = 0,
     val name: String,
     val location: String,
     val latitude: Double,
     val longitude: Double,
     val date: String,
     val type: String,
-    val mood: String,
+    val mood: Int,
     val notes: String,
     val image: String,
 )

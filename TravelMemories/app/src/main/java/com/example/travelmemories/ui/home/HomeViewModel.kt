@@ -34,9 +34,7 @@ class HomeViewModel : ViewModel() {
     fun getDummyMemories(): MutableList<MemoryEntity> {
         val list = mutableListOf<MemoryEntity>()
 
-        list.add(MemoryEntity(0,"m1","l1",0.0,0.0,"12.05.2020","type","mood1","notes1","img1"))
-//        list.add(Memory(2,"m2","l2","img2","12.05.2019"))
-//        list.add(Memory(3,"m3","l3","img3","12.05.2018"))
+        list.add(MemoryEntity(0,"m1","l1",0.0,0.0,"12.05.2020","type",29,"notes1","img1"))
         return list
     }
 

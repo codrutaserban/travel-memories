@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MemoryActivity">
+
+    <EditText
+        android:id="@+id/place_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/place_name_placeholder"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/add_location"
+        android:layout_width="110dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/set_location_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/place_name" />
+
+    <TextView
+        android:id="@+id/text_location"
+        android:layout_width="193dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        android:hint="@string/your_location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.452"
+        app:layout_constraintStart_toEndOf="@+id/add_location"
+        app:layout_constraintTop_toBottomOf="@+id/place_name" />
+
+
+    <CalendarView
+        android:id="@+id/calendar_picker"
+        android:layout_width="367dp"
+        android:layout_height="296dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_text" />
+
+    <TextView
+        android:id="@+id/date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="@string/set_date_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.118"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_location" />
+
+    <Spinner
+        android:id="@+id/type_travel_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toEndOf="@+id/type_travel_text"
+        app:layout_constraintTop_toBottomOf="@+id/calendar_picker" />
+
+    <TextView
+        android:id="@+id/type_travel_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/type_of_travel_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendar_picker" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/mood_slider"
+        android:layout_width="262dp"
+        android:layout_height="39dp"
+        android:layout_margin="32dp"
+        android:layout_marginTop="28dp"
+        android:stepSize="10.0"
+        android:valueFrom="0.0"
+        android:valueTo="100.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.416"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/type_travel_picker" />
+
+    <TextView
+        android:id="@+id/mood_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/mood_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/type_travel_text" />
+
+    <EditText
+        android:id="@+id/notes_text"
+        android:layout_width="354dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/notes_placeholder"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mood_slider" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
