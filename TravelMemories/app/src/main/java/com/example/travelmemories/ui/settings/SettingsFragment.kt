@@ -11,6 +11,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.travelmemories.MainActivity
 import com.example.travelmemories.R
 import com.example.travelmemories.databinding.FragmentSettingsBinding
 import com.google.android.material.snackbar.Snackbar
@@ -50,6 +51,7 @@ class SettingsFragment : Fragment() {
                 Snackbar.make(binding.root, getString(R.string.setting_saved_text), Snackbar.LENGTH_LONG).setAction("Action", null).show()
             }
         }
+        (activity as MainActivity?)!!.getFloatingActionButton()?.hide()
         return root
     }
 

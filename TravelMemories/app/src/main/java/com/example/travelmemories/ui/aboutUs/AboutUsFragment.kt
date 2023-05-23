@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.travelmemories.MainActivity
 import com.example.travelmemories.databinding.FragmentAboutUsBinding
 
 class AboutUsFragment : Fragment() {
@@ -32,6 +33,7 @@ class AboutUsFragment : Fragment() {
         aboutUsViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+        (activity as MainActivity?)!!.getFloatingActionButton()?.hide()
         return root
     }
 

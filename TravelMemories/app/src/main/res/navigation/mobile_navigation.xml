@@ -22,9 +22,22 @@
         android:name="com.example.travelmemories.ui.contactUs.ContactUsFragment"
         android:label="@string/contact_us"
         tools:layout="@layout/fragment_contact_us" />
+
     <fragment
         android:id="@+id/nav_settings"
         android:name="com.example.travelmemories.ui.settings.SettingsFragment"
-        android:label="@string/contact_us"
+        android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.example.travelmemories.ui.logout.LogoutFragment"
+        android:label="@string/logout"
+        tools:layout="@layout/fragment_logout" />
+
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.example.travelmemories.ui.login.LoginFragment"
+        android:label="@string/login_button_text"
+        tools:layout="@layout/fragment_login" />
 </navigation>

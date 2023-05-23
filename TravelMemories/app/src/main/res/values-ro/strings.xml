@@ -58,4 +58,7 @@
     <string name="passwordLabel">Parola</string>
     <string name="usernameLabel">Nume utilizator</string>
 
+    <!-- logout activity -->
+    <string name="logout_text">Ai fost deconcectat</string>
+
 </resources>

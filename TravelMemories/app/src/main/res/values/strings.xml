@@ -63,4 +63,7 @@
     <string name="login_button_text">Login</string>
     <string name="passwordLabel">Password</string>
     <string name="usernameLabel">Username</string>
+
+    <!-- logout activity -->
+    <string name="logout_text">You have been logged out</string>
 </resources>

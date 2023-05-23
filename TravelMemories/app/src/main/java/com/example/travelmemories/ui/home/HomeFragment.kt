@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.travelmemories.MainActivity
 import com.example.travelmemories.Memory
 import com.example.travelmemories.MemoryListAdapter
 import com.example.travelmemories.TravelMemoriesDb
@@ -47,20 +48,21 @@ class HomeFragment : Fragment() {
 
         Log.d("Home fragment ", "bind recycler")
         recyclerView = binding.recyclerViewHome
-        val adapter = MemoryListAdapter(listOf(Memory(1,"aa","b","c","d")))
-        recyclerView.adapter= adapter
+        val adapter = MemoryListAdapter(listOf(Memory(1, "aa", "b", "c", "d")))
+        recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(root.context)
 
-        homeViewModel.getMemoryList(root.context).observe(viewLifecycleOwner, Observer<List<Memory>>{ memoryList ->
-            // update UI
-            data.value=memoryList
-            da=memoryList!!
-            Log.d("Home Fragment ","Data Send: "+data.value!!.size.toString())
-            Log.d("HomeFragment", "In observer: da:$da ")
-            Log.d("HomeFragment", "In observer: data:$data ")
+        homeViewModel.getMemoryList(root.context)
+            .observe(viewLifecycleOwner, Observer<List<Memory>> { memoryList ->
+                // update UI
+                data.value = memoryList
+                da = memoryList!!
+                Log.d("Home Fragment ", "Data Send: " + data.value!!.size.toString())
+                Log.d("HomeFragment", "In observer: da:$da ")
+                Log.d("HomeFragment", "In observer: data:$data ")
 
-            adapter.updateList(memoryList!!)
-        })
+                adapter.updateList(memoryList!!)
+            })
 
 //        homeViewModel.getMemoryList(root.context).observe(viewLifecycleOwner, Observer<List<Memory>>{
 //                memoryList -> adapter.updateList(memoryList)
@@ -94,6 +96,7 @@ class HomeFragment : Fragment() {
             }
             homeViewModel.updateMemoryList(aux)
         }
+        (activity as MainActivity?)!!.getFloatingActionButton()?.show()
     }
 
     override fun onDestroyView() {
