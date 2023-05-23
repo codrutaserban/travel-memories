@@ -1,4 +1,4 @@
-package com.example.travelmemories.ui.contactUs
+package com.example.travelmemories.ui.feedback
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,16 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.travelmemories.MainActivity
 import com.example.travelmemories.databinding.FragmentFeedbackBinding
+import com.example.travelmemories.ui.contactUs.ContactUsViewModel
 
 
-class ContactUsFragment : Fragment() {
+class FeedbackFragment : Fragment() {
 
     private var _binding: FragmentFeedbackBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +37,6 @@ class ContactUsFragment : Fragment() {
         intent.putExtra(Intent.EXTRA_TEXT, "Demo send feedback with email")
         intent.type = "message/rfc822"
         startActivity(Intent.createChooser(intent, "Select email"))
-
         (activity as MainActivity?)!!.getFloatingActionButton()?.hide()
 
         return root
