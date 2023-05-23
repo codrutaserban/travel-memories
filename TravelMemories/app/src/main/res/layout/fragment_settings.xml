@@ -17,67 +17,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/spinner_theme"
-        android:layout_width="162dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="92dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/text_app_theme"
-        app:layout_constraintTop_toBottomOf="@+id/switch_map_scale" />
-
-    <TextView
-        android:id="@+id/text_app_theme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="84dp"
-        android:text="@string/app_theme_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch_map_scale" />
-
-    <TextView
-        android:id="@+id/text_app_language"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="44dp"
-        android:text="@string/app_language_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_app_theme" />
-
-    <Spinner
-        android:id="@+id/spinner_language"
-        android:layout_width="158dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toEndOf="@+id/text_app_language"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_theme" />
 
     <TextView
         android:id="@+id/text_app_map_mode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="152dp"
         android:text="@string/app_map_mode"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_app_language" />
+        app:layout_constraintTop_toBottomOf="@+id/switch_map_scale" />
 
     <Spinner
         android:id="@+id/spinner_map_mode"
         android:layout_width="124dp"
         android:layout_height="40dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="144dp"
         android:layout_marginEnd="92dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/text_app_map_mode"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_language" />
+        app:layout_constraintTop_toBottomOf="@+id/switch_map_scale" />
 
     <Button
         android:id="@+id/button_save_settings"

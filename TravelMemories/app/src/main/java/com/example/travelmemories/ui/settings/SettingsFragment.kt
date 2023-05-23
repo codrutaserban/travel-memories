@@ -19,8 +19,6 @@ import com.google.android.material.snackbar.Snackbar
 class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
-    private var themeSelection: String = ""
-    private var languageSelection: String= ""
     private var mapModeSelection: String= ""
     private var showMapScaleSelection = true
     private lateinit var sharedPref:SharedPreferences
@@ -38,16 +36,12 @@ class SettingsFragment : Fragment() {
 
         sharedPref = activity?.getSharedPreferences("prefs",Context.MODE_PRIVATE)!!
 
-        setThemeSpinnerAdapter()
-        setLanguageSpinnerAdapter()
         setMapModeSpinnerAdapter()
         setMapScaleSwitch()
 
         binding.buttonSaveSettings.setOnClickListener{
             if (sharedPref != null) {
                 with (sharedPref.edit()) {
-                    putString("preferedTheme", themeSelection)
-                    putString("preferedLanguage", languageSelection)
                     putString("preferedMapMode", mapModeSelection)
                     putBoolean("showMapSelection", showMapScaleSelection)
                     apply()
@@ -64,27 +58,7 @@ class SettingsFragment : Fragment() {
         _binding = null
     }
 
-    private fun setThemeSpinnerAdapter(){
-        val themesTypes = resources.getStringArray(R.array.types_of_app_theme)
-        themeSelection = sharedPref.getString("preferedTheme", themesTypes[0]).toString()
-        if (this.binding.spinnerTheme != null) {
-            val adapter = ArrayAdapter(binding.root.context,
-                android.R.layout.simple_spinner_item, themesTypes)
-            this.binding.spinnerTheme.adapter = adapter
-            this.binding.spinnerTheme.setSelection(themesTypes.indexOf(themeSelection))
-            this.binding.spinnerTheme.onItemSelectedListener = object :
-                AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>,
-                                            view: View, position: Int, id: Long) {
-                    themeSelection= themesTypes[position]
-                }
 
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                    themeSelection= themesTypes[0]
-                }
-            }
-        }
-    }
 
     private fun setMapModeSpinnerAdapter(){
         val mapOptions = resources.getStringArray(R.array.types_of_app_map_mode)
@@ -105,28 +79,6 @@ class SettingsFragment : Fragment() {
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
                     mapModeSelection= mapOptions[0]
-                }
-            }
-        }
-    }
-
-    private fun setLanguageSpinnerAdapter(){
-        val languages = resources.getStringArray(R.array.types_of_app_language)
-        languageSelection = sharedPref.getString("preferedLanguage", languages[0]).toString()
-        if (this.binding.spinnerLanguage != null) {
-            val adapter = ArrayAdapter(binding.root.context,
-                android.R.layout.simple_spinner_item, languages)
-            this.binding.spinnerLanguage.adapter = adapter
-            this.binding.spinnerLanguage.setSelection(languages.indexOf(languageSelection))
-            this.binding.spinnerLanguage.onItemSelectedListener = object :
-                AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>,
-                                            view: View, position: Int, id: Long) {
-                    languageSelection= languages[position]
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                    languageSelection= languages[0]
                 }
             }
         }
