@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -29,7 +28,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback{//, GoogleMap.OnMar
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapsBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var lastLocation: Location
+    private lateinit var lastLocation: LatLng
     private lateinit var selectedLocation: Address
 
     companion object {
@@ -70,6 +69,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback{//, GoogleMap.OnMar
         setUpMap()
         map.setOnMapClickListener { latlng ->
             val location = LatLng(latlng.latitude, latlng.longitude)
+            this.lastLocation = location
             map.clear()
             var marker = MarkerOptions().position(location)
             // this.marker=marker
@@ -125,6 +125,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback{//, GoogleMap.OnMar
                 val intent = Intent()
                 intent.putExtra("operation","save")
                 intent.putExtra("address",this.selectedLocation )
+                intent.putExtra("long",this.lastLocation.longitude)
+                intent.putExtra("lat",this.lastLocation.latitude)
+                Log.d("Save location",this.selectedLocation.getAddressLine(0) )
                 setResult(RESULT_OK, intent);
                 finish()
                 return true

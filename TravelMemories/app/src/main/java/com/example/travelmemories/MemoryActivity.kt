@@ -1,6 +1,7 @@
 package com.example.travelmemories
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.location.Address
 import android.os.Build
@@ -21,10 +22,16 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.travelmemories.networkconnection.OpenWheatherServiceApi
+import com.example.travelmemories.networkconnection.Weather
 import com.google.android.material.slider.Slider
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -161,6 +168,48 @@ class MemoryActivity : AppCompatActivity() {
                 finish()
                 return true
             }
+            R.id.weather_activity_button -> {
+                val moshi: Moshi = Moshi.Builder()
+                    .add(KotlinJsonAdapterFactory())
+                    .build()
+                val retrofit= Retrofit.Builder()
+                    .addConverterFactory(MoshiConverterFactory.create(moshi))
+                    .baseUrl("https://api.openweathermap.org/data/3.0/")
+                    .build()
+
+                val openServiceAPI: OpenWheatherServiceApi = retrofit.create(OpenWheatherServiceApi::class.java)
+
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Location weather")
+
+                lifecycleScope.launch {
+                    var weather: Weather? = null
+
+                    try{
+                        weather= openServiceAPI.getCurrentWeather(currentMemory.latitude,currentMemory.longitude, OpenWheatherServiceApi.API_KEY )
+
+                        Log.d("nu in exeption",weather.current.toString())
+
+                    }
+                    catch(exception:Exception) {
+                            builder.setMessage("Weather value is: ${exception}")
+                            builder.show()
+                            Log.d("in exeption",exception.toString())
+                            Log.d("in exeption",currentMemory.toString())
+                    }
+                    withContext(Dispatchers.Main){
+                        // Update UI
+                        if(weather!=null){
+                            Log.d("Weather", weather!!.current.temp.toString())
+                            builder.setMessage("Weather value is ${weather!!.current.temp}\nBut it feels like ${weather!!.current.feels_like}")
+                            builder.show()
+                        }
+                        else{
+                            Log.d("in context", "weather=null")
+                        }
+                    }
+                }
+            }
         }
 
         return super.onOptionsItemSelected(item)
@@ -188,6 +237,10 @@ class MemoryActivity : AppCompatActivity() {
                 if(op=="save"){
                     Toast.makeText(this, "s-a intors cu save", Toast.LENGTH_SHORT).show()
                     this.address = data?.getParcelableExtra("address", Address::class.java)!!
+                    Log.d("back in memory cu save", this.address!!.getAddressLine(0))
+                    Log.d("back in memory cu save", this.address!!.latitude.toString())
+                    Log.d("back in memory cu save", this.address!!.longitude.toString())
+
                     this.textLocation.text= this.address!!.getAddressLine(0)
                 }
                 else if(op=="back"){
@@ -199,12 +252,12 @@ class MemoryActivity : AppCompatActivity() {
     }
 
     private fun populateComponents() {
-        Log.d("Current action", "populate com")
 
         val memoriesDAO =  TravelMemoriesDb.getInstances(this).memoriesDAO()
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 currentMemory = memoriesDAO.get(editMemoryId)
+                Log.d("Current memory", currentMemory.toString())
                 placeName.setText(currentMemory.name)
                 textLocation.text = currentMemory.location
                 val df = SimpleDateFormat("dd.MM.yyyy")
@@ -212,6 +265,7 @@ class MemoryActivity : AppCompatActivity() {
                 moodSlider.value= currentMemory.mood.toFloat()
                 setSpinText(currentMemory.type)
                 notesText.setText(currentMemory.notes)
+
             }
         }
     }
@@ -229,7 +283,6 @@ class MemoryActivity : AppCompatActivity() {
             val time = Calendar.getInstance().time
             val formatter = SimpleDateFormat("dd.MM.yyyy")
             val today = formatter.format(time)
-            Log.d("today", today)
             selectedDate=today
         }
         var lat = 0.0
