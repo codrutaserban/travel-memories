@@ -18,7 +18,6 @@ import android.widget.CalendarView.OnDateChangeListener
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -77,7 +76,6 @@ class MemoryActivity : AppCompatActivity() {
             startActivityForResult(intent, requestMapActivityCode)
         }
 
-        Toast.makeText(this, "$editMemoryId", Toast.LENGTH_SHORT).show()
         Log.d("Current action", action)
 
     }
@@ -94,7 +92,6 @@ class MemoryActivity : AppCompatActivity() {
                 override fun onItemSelected(parent: AdapterView<*>,
                                             view: View, position: Int, id: Long) {
                     travelType=tarvelTypes[position]
-                    Toast.makeText(this@MemoryActivity,tarvelTypes[position], Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -143,7 +140,6 @@ class MemoryActivity : AppCompatActivity() {
                     memoriesDAO.insert(newMemory)
                      }
                 }
-                Toast.makeText(this, "save button clicked", Toast.LENGTH_SHORT).show()
                 finish()
                 return true
             }
@@ -229,7 +225,6 @@ class MemoryActivity : AppCompatActivity() {
             requestMapActivityCode -> {
                val op = data?.getStringExtra("operation")
                 if(op=="save"){
-                    Toast.makeText(this, "s-a intors cu save", Toast.LENGTH_SHORT).show()
                     this.address = data?.getParcelableExtra("address", Address::class.java)!!
                     Log.d("back in memory cu save", this.address!!.getAddressLine(0))
                     Log.d("back in memory cu save", this.address!!.latitude.toString())
@@ -238,7 +233,6 @@ class MemoryActivity : AppCompatActivity() {
                     this.textLocation.text= this.address!!.getAddressLine(0)
                 }
                 else if(op=="back"){
-                    Toast.makeText(this, "s-a intors cu back", Toast.LENGTH_SHORT).show()
                 }
             }
             else -> {}

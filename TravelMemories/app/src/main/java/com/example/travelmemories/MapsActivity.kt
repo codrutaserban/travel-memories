@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.travelmemories.databinding.ActivityMapsBinding
@@ -97,7 +96,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback{//, GoogleMap.OnMar
                 Log.d("current loc",addresses!![0].getAddressLine(0) )
             }
             catch (e: IOException){
-                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show();
             }
 
             map.addMarker(marker)
@@ -113,8 +111,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback{//, GoogleMap.OnMar
                 arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
             return
         }
-
-
 
         map.isMyLocationEnabled = true
     }

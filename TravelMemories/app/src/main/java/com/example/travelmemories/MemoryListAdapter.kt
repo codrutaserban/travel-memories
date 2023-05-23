@@ -5,7 +5,6 @@ import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,21 +14,8 @@ import com.example.travelmemories.databinding.MemoryRecyclerViewItemBinding
 class MemoryListAdapter(private var memories: List<Memory>): ListAdapter<Memory,MemoryListAdapter.MemoryViewHolder>(RowItemDiffCallback()) {
     lateinit var context: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemoryViewHolder {
-        val layout = LayoutInflater.from(parent.context).inflate (R.layout.memory_recycler_view_item,parent,false)
-        val binding = MemoryRecyclerViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        context=parent.context
+       context=parent.context
         val holder = MemoryViewHolder.from(parent)
-        holder.itemView.setOnClickListener {
-            Toast.makeText(parent.context, "item in recycler view clicked ${holder.binding.memoryItemName.text}", Toast.LENGTH_SHORT).show()
-            //val intent = Intent( parent.context, MemoryActivity::class.java)
-            //intent.putExtra("memory_id", holder.binding.)
-           // parent.context.startActivity(intent)
-//            val intent = Intent(parent.context, MemoryActivity::class.java)
-//            intent.putExtra("action", "edit")
-//            intent.putExtra("id", )
-//            startActivity(intent)
-        }
-        Log.d(" Home Adapter ", "on create view holder")
         return holder
     }
 
@@ -47,7 +33,6 @@ class MemoryListAdapter(private var memories: List<Memory>): ListAdapter<Memory,
             intent.putExtra("memory_id", currentItem.id)
             context.startActivity(intent)
         }
-        //aici pot face si holder.textViewName daca le declar ca public
     }
 
     fun updateList(data: List<Memory>) {
@@ -57,9 +42,6 @@ class MemoryListAdapter(private var memories: List<Memory>): ListAdapter<Memory,
     }
 
     class MemoryViewHolder private constructor(val binding: MemoryRecyclerViewItemBinding): RecyclerView.ViewHolder(binding.root) {
-//        var textViewName: TextView = itemView.findViewById<TextView>(R.id.memory_item_name)
-//        private var textViewLocation: TextView =itemView.findViewById<TextView>(R.id.memory_item_location)
-//        private var textViewDate: TextView =itemView.findViewById<TextView>(R.id.memory_item_date)
 
         companion object {
             fun from(parent: ViewGroup): MemoryViewHolder {
@@ -70,7 +52,6 @@ class MemoryListAdapter(private var memories: List<Memory>): ListAdapter<Memory,
         }
 
         fun bind(item:Memory){
-            Log.d(" Home Adapter ", "bind date $item")
 
             with(binding) {
                 binding.memoryItemName.text = item.name
