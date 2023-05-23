@@ -74,7 +74,6 @@ class MemoryActivity : AppCompatActivity() {
 
         this.locationButton.setOnClickListener{
             val intent = Intent(this, MapsActivity::class.java)
-            startActivity(intent)
             startActivityForResult(intent, requestMapActivityCode)
         }
 
@@ -187,15 +186,10 @@ class MemoryActivity : AppCompatActivity() {
 
                     try{
                         weather= openServiceAPI.getCurrentWeather(currentMemory.latitude,currentMemory.longitude, OpenWheatherServiceApi.API_KEY )
-
-                        Log.d("nu in exeption",weather.current.toString())
-
                     }
                     catch(exception:Exception) {
-                            builder.setMessage("Weather value is: ${exception}")
+                            builder.setMessage("Location must be set")
                             builder.show()
-                            Log.d("in exeption",exception.toString())
-                            Log.d("in exeption",currentMemory.toString())
                     }
                     withContext(Dispatchers.Main){
                         // Update UI

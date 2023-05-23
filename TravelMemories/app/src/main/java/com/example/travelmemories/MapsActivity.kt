@@ -1,6 +1,8 @@
 package com.example.travelmemories
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
@@ -30,7 +32,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback{//, GoogleMap.OnMar
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var lastLocation: LatLng
     private lateinit var selectedLocation: Address
-
+    private lateinit var sharedPref:SharedPreferences
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
@@ -49,6 +51,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback{//, GoogleMap.OnMar
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        sharedPref = getSharedPreferences("prefs", Context.MODE_PRIVATE)
 
     }
 
@@ -64,7 +67,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback{//, GoogleMap.OnMar
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
-        map.uiSettings.isZoomControlsEnabled = true
+        val showMapScaleSelection = sharedPref.getBoolean("showMapSelection", true)
+        map.uiSettings.isZoomControlsEnabled = showMapScaleSelection
+        Log.d("ShowScale", showMapScaleSelection.toString())
+
+        val mapOptions = resources.getStringArray(R.array.types_of_app_map_mode)
+        val mapModeSelection = sharedPref.getString("preferedMapMode", "sss").toString()
+        if(mapModeSelection == mapOptions[0]){
+            map.mapType=GoogleMap.MAP_TYPE_SATELLITE
+        }
+        if(mapModeSelection == mapOptions[1]){
+            map.mapType=GoogleMap.MAP_TYPE_NORMAL
+        }
+
 
         setUpMap()
         map.setOnMapClickListener { latlng ->
@@ -98,6 +113,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback{//, GoogleMap.OnMar
                 arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
             return
         }
+
+
 
         map.isMyLocationEnabled = true
     }

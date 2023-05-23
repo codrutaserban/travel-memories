@@ -9,11 +9,53 @@
     <string name="action_settings">Setari</string>
 
     <string name="menu_home">Acasa</string>
-    <string name="menu_gallery">Galerie</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="about_us">Despre noi</string>
+    <string name="contact_us">Contact</string>
+    <string name="share">Distribuie</string>
+    <string name="settings">Setari</string>
+    <string name="logout">Iesire</string>
+
+    <string name="about_us_text">What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</string>
+
     <string name="title_activity_maps">MapsActivity</string>
     <!-- add/edit memory activity -->
     <string name="place_name_placeholder">Numele locației</string>
     <string name="set_location_button">Seteaza locația</string>
+    <string name="set_date_text">Seteaza data</string>
+    <string name="your_location">Locatia ta</string>
+    <string name="type_of_travel_text">Scopul calatoriei</string>
+    <string name="mood_text">Stare (0- Dezamagit; 100- Foarte multumit)</string>
+    <string name="notes_placeholder">Adauga detalii</string>
+    <string name="save_button">Salveaza</string>
+    <string name="delete_button">Sterge</string>
+    <string name="weather_button">Vremea</string>
+    <string name="add_activity_title">Adauga</string>
+
+    <!-- maps activity -->
+    <string name="select_location">Selecteaza Locatia</string>
+
+    <!-- settings activity -->
+    <string name="show_map_scale_text">Afisaza scara hartii</string>
+    <string name="app_theme_text">Tema aplicatiei</string>
+    <string-array name="types_of_app_theme">
+        <item>Intunecat</item>
+        <item>Luminos</item>
+    </string-array>
+    <string name="app_language_text">Limba</string>
+    <string-array name="types_of_app_language">
+        <item>Engleza</item>
+        <item>Romana</item>
+    </string-array>
+    <string name="app_map_mode">Tipul hartii</string>
+    <string-array name="types_of_app_map_mode">
+        <item>Satelit</item>
+        <item>Normal</item>
+    </string-array>
+    <string name="setting_saved_text">Setari salvate</string>
+
+    <!-- login activity -->
+    <string name="login_button_text">Autentificare</string>
+    <string name="passwordLabel">Parola</string>
+    <string name="usernameLabel">Nume utilizator</string>
 
 </resources>
